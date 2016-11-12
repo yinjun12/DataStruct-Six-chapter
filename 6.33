@@ -1,0 +1,9 @@
+there are two arrays,L[n+1],R[n+1],storing binary tree of n nodes. L[i] express i's left child,R[i] express i's right child.
+write a algorithm to judge :Do the u is the v's son?
+algorithm:
+bool FindSonNode(int L[], int R[],int u, int v)
+{
+	if (v == 0) return false;
+	if (L[v] == u || R[v] == u) return true;
+	return FindSonNode(L, R, u, L[v]) || FindSonNode(L, R, u, R[v]);
+}
