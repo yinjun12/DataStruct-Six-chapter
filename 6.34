@@ -1,0 +1,6 @@
+bool FindSonNodeT(int T[], int u, int v)
+{
+	if (u == 0) return false;
+	if (T[u] == v) return true;
+	return FindSonNodeT(T, T[u], v);
+}
