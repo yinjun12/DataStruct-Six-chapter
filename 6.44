@@ -1,0 +1,19 @@
+int DepthFromRootNode(TreeNode * root)//get depth from root
+{
+	if (root == NULL) return 0;
+	int leftDepth = DepthFromRootNode(root->left);
+	int rightDepth = DepthFromRootNode(root->right);
+	return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+}
+void GetDepthFromXNode(TreeNode *root, char ch,int &xDepth)//find the node that its value is equal ch and find this node's height
+{
+	if (root)
+	{
+		if (ch == root->val)
+		{
+			xDepth= DepthFromRootNode(root);
+		}
+		GetDepthFromXNode(root->left, ch,xDepth);
+		GetDepthFromXNode(root->right, ch,xDepth);
+	}
+}
