@@ -1,0 +1,13 @@
+TreeNode *SearchCommonAcestor(TreeNode *root,TreeNode * p1, TreeNode *p2)//find lowest common ancestor
+{
+	
+	if (root == NULL || root == p1 || root == p2)
+		return root;
+	TreeNode *temp1 = SearchCommonAcestor(root->left, p1, p2);
+	TreeNode *temp2 = SearchCommonAcestor(root->right, p1, p2);
+	if (temp1 == NULL)
+		return temp2;
+	else if (temp2 == NULL)
+		return temp1;
+	return root;
+}
