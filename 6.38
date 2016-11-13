@@ -1,0 +1,29 @@
+void PostOrderTravelNonRecursion(TreeNode *root)
+{
+	vector<TreeNode *>posorder;
+	TreeNode *p = root, *pLastVisit = NULL;
+	while (p)
+	{
+		posorder.push_back(p);
+		p = p->left;
+	}
+	while (!posorder.empty())
+	{
+		p = posorder.back();
+		if (p->right == NULL || p->right == pLastVisit)
+		{
+			cout << p->val << " ";
+			posorder.pop_back();
+			pLastVisit = p;
+		}
+		else
+		{
+			p = p->right;
+			while (p)
+			{
+				posorder.push_back(p);
+				p = p->left;
+			}
+		}
+	}
+}
