@@ -1,0 +1,28 @@
+bool GetPath(TreeNode *root, char ch,vector<TreeNode*>&vec)//get a path which from root to node that given
+{//this is a great solution for geting path!!
+	if (root == NULL)
+		return false;
+	if (root->val == ch || GetPath(root->left, ch, vec) || GetPath(root->right, ch, vec))//get a vector that stored reverse path.
+	{
+		vec.push_back(root);
+		return true;
+	}
+	return false;
+}
+int GetDec(vector<TreeNode *>vec)//get the 0 or 1 from above path
+{
+	int sum = 0;
+	vector<int>num(1, 1);
+	for (int i = vec.size() - 1; i > 0; i--)
+	{
+		if (vec[i]->left == vec[i - 1])//turn left ,store 0; turn right ,store 1
+			num.push_back(0);
+		else
+			num.push_back(1);
+	}
+	for (int i = 0; i < num.size(); i++)//transform dec
+	{
+		sum = sum * 2 + num[i];
+	}
+	return sum;
+}
