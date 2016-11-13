@@ -1,0 +1,65 @@
+recursion:
+void CopyBinaryTreeRecursion(TreeNode *root1, TreeNode *&root2)//copy a binary tree from root1 to root2 with recursion algorithm
+{
+	if (root1 == NULL) root2 = NULL;
+	else
+	{
+		root2 = (TreeNode *)malloc(sizeof(TreeNode));
+		root2->val = root1->val;
+		CopyBinaryTreeRecursion(root1->left, root2->left);
+		CopyBinaryTreeRecursion(root1->right, root2->right);
+	}
+}
+non-recursion:
+void CopyBinaryTreeNonRecursion(TreeNode *root1, TreeNode *&root2)//copy a binary tree from root1 to root2 with non-recursion algorithm
+{//copy with preorder copy.
+	vector<TreeNode *>vec, copyvec;//vec store preorder node, copyvec stores new node.
+	vec.push_back(root1);
+	root2 = (TreeNode *)malloc(sizeof(TreeNode));
+	root2->val = root1->val;
+	copyvec.push_back(root2);
+	TreeNode *q = root2;
+	while (!vec.empty())
+	{
+		TreeNode *p = vec.back();
+		q = copyvec.back();
+		while (p)//because root1 all travel left node, root2 all new left node ,too.
+		{
+			p = p->left;
+			if (p != NULL)
+			{
+				TreeNode *s = (TreeNode *)malloc(sizeof(TreeNode));
+				s->val = p->val;
+
+				q->left = s;
+			}
+			else
+				q->left = NULL;
+			q = q->left;
+			vec.push_back(p);
+			copyvec.push_back(q);
+		}
+		copyvec.pop_back();
+		vec.pop_back();
+		if (!vec.empty())
+		{
+			p = vec.back();
+			q = copyvec.back();
+			vec.pop_back();
+			copyvec.pop_back();
+			if (p->right == NULL)
+			{
+				q->right = NULL;
+			}
+			else
+			{
+				TreeNode *s = (TreeNode *)malloc(sizeof(TreeNode));
+				s->val = p->right->val;
+				q->right = s;
+			}
+			vec.push_back(p->right);
+			copyvec.push_back(q->right);
+		}
+	}
+
+}
