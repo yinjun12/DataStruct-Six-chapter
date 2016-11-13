@@ -1,0 +1,9 @@
+TreeNode *SwapAllLeftRight(TreeNode *root)
+{
+	if (root == NULL )
+		return root;
+	TreeNode *temp = root->left;
+	root->left = SwapAllLeftRight(root->right);
+	root->right = SwapAllLeftRight(temp);
+	return root;
+}
