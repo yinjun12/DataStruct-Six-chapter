@@ -1,0 +1,12 @@
+void GetKPositionValueInPreorder(TreeNode *root, int k, char &ch)
+{
+	if (root)
+	{
+		cout << root->val << " ";
+		k--;
+		if (0 == k) ch = root->val;
+		GetKPositionValueInPreorder(root->left, k ,ch);
+		GetKPositionValueInPreorder(root->right, k ,ch);
+		
+	}
+}
