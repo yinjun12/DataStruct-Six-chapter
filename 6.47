@@ -1,0 +1,16 @@
+void levelTravelTree(TreeNode *root)
+{
+	if (!root) return;
+	deque<TreeNode *>de;
+	de.push_back(root);
+	while (!de.empty())
+	{
+		TreeNode *pTemp = de.front();
+		de.pop_front();
+		cout << pTemp->val << " ";
+		if (pTemp->left)
+			de.push_back(pTemp->left);
+		if (pTemp->right)
+			de.push_back(pTemp->right);
+	}
+}
