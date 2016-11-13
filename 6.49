@@ -1,0 +1,26 @@
+}
+bool IsOrNotCompleteBinaryTree(TreeNode *root) //check with complete binary tree's character
+{
+	if (!root) return true;
+	deque<TreeNode *>de;
+	int level = 0;
+	de.push_back(root);
+	while (!de.empty())
+	{
+		int size = de.size();
+		level++;
+		if (pow(2, level - 1) != size){ return false; break; }
+		while (size > 0)
+		{
+			TreeNode *p = de.front();
+			de.pop_front();
+			if (p->left)
+				de.push_back(p->left);
+			if (p->right)
+				de.push_back(p->right);
+			size--;
+		}
+
+	}
+	return true;
+}
