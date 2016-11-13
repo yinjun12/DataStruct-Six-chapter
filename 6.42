@@ -1,0 +1,10 @@
+int CountLeaf(TreeNode *root)
+{
+	if (root == NULL) return 0;
+	if (root->left == NULL&&root->right == NULL)
+		return 1;
+	int sum = CountLeaf(root->left);
+	sum += CountLeaf(root->right);
+	return sum;
+	
+}
