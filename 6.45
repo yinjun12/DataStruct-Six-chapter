@@ -1,0 +1,13 @@
+void DeleteXNodeAndSonTree(TreeNode *root, char ch)//find the node that its value is equal ch and delete its subtree.
+{
+	if (root)
+	{
+		if (root->val == ch)
+		{
+			root->left = NULL;
+			root->right = NULL;
+		}
+		DeleteXNodeAndSonTree(root->left, ch);
+		DeleteXNodeAndSonTree(root->right, ch);
+	}
+}
