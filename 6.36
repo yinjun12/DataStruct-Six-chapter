@@ -1,0 +1,9 @@
+judge whether are two trees similar or not with recursion.
+bool WhetherSimilar(TreeNode *root1, TreeNode *root2)//just judge whether are tree similar or not.
+{
+	if (root1 == NULL&&root2 == NULL)
+		return true;
+	if (root1 == NULL&&root2 != NULL || root1 != NULL&&root2 == NULL)
+		return false;
+	return WhetherSimilar(root1->left, root2->left) && WhetherSimilar(root1->right, root2->right);
+}
