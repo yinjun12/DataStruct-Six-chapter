@@ -1,0 +1,14 @@
+bool GetDepthPath(TreeNode *root, vector<TreeNode *>&ret, int k)//this algorithm is very useful!!
+{
+	if (root == NULL)
+	{
+		return false;
+	}
+	if (k == 1 && root->left == NULL&&root->right == NULL || GetDepthPath(root->left, ret, k - 1) || GetDepthPath(root->right, ret, k - 1))
+	{
+		ret.push_back(root);
+		return true;
+	}
+	return false;
+}
+	
