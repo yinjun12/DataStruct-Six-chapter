@@ -1,0 +1,24 @@
+int GetLushDegree(TreeNode *root)//degree of lush is equal max level number multiple depth of tree
+{
+	if (!root) return 0;
+	int maxLevelSize = 0, level = 0;
+	deque<TreeNode *>de;
+	de.push_back(root);
+	while (!de.empty())
+	{
+		int size = de.size();
+		if (size > maxLevelSize) maxLevelSize = size;
+		level++;
+		while (size > 0)
+		{
+			TreeNode *p = de.front();
+			de.pop_front();
+			if (p->left)
+				de.push_back(p->left);
+			if (p->right)
+				de.push_back(p->right);
+			size--;
+		}
+	}
+	return level*maxLevelSize;
+}
