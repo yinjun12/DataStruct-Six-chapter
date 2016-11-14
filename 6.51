@@ -1,0 +1,47 @@
+string BinaryTreeExpressionToString(TreeNode *root)//transform binary tree to expression
+{
+	vector<TreeNode *>inOrder;//inorder travel
+	vector<TreeNode *>opeVec;//stores operator
+	string resultString = "";
+	inOrder.push_back(root);
+	int flag = 0;//to check whether add ')' in the behind.
+	while (!inOrder.empty())
+	{
+		TreeNode *p = inOrder.back();
+		while (p)
+		{
+			p = p->left;
+			inOrder.push_back(p);
+		}
+		inOrder.pop_back();
+		if (!inOrder.empty())
+		{
+			p = inOrder.back();
+			inOrder.pop_back();
+			
+			if (!isalpha(p->val))
+			{
+				if (!opeVec.empty() && CheckOperatorPriority(opeVec.back()->val, p->val))//if '*' or '/' behind the '+'or '-',only add '(' to the begin of resultString and ')' to the end
+				{
+					resultString.insert(resultString.begin(), '(');
+					resultString.push_back(')');
+				}
+				else if (!opeVec.empty() && CheckOperatorPriority(p->val, opeVec.back()->val) && opeVec.back()->right == p)
+				{//if '*' or '/' is in front of the '+'or '-'and '+' or '-' is the right subtree of the '*' or '/',add '(' to the prior of end ')' to the future node
+					resultString.insert(resultString.end() - 1, '(');
+					flag = 1;//mean the behind should add ')'
+
+				}
+				opeVec.push_back(p);
+			}
+			resultString = resultString + p->val;
+			if (flag == 1 && isalpha(p->val))
+			{
+				resultString = resultString + ')';
+				flag = 0;
+			}
+			inOrder.push_back(p->right);
+		}
+	}
+	return resultString;
+}
