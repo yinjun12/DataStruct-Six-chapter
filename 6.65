@@ -1,0 +1,22 @@
+ TreeNode *buildTreeHelper(vector<int> &preorder,vector<int> &inorder,int instart,int inend,int prestart)
+    {//与中序和后序不一样，这里先序并不是每个第一个都是根结点，可能需要往后再找几个
+        if(instart>inend) return NULL;
+        int temp=prestart;
+        int cur=-1;
+        while(cur==-1)//往后面找几个，看是否是根
+        {
+             for(int i=instart;i<=inend;i++)//一定要在这个范围
+               {
+                 if(inorder[i]==preorder[temp]){cur=i;break;}
+               }
+               temp++;
+        }
+        TreeNode *root=new TreeNode(inorder[cur]);
+        root->left=buildTreeHelper(preorder,inorder,instart,cur-1,prestart+1);
+        root->right=buildTreeHelper(preorder,inorder,cur+1,inend,prestart+1);
+        return root;
+        
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        return buildTreeHelper(preorder,inorder,0,inorder.size()-1,0);
+    }
